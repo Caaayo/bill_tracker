@@ -54,6 +54,9 @@ for bill in get_bills():
         col1.write(f"{bill_name} ({bill_due_date})")
         col2.write(f"${bill_amount:,.2f}")
 
+        if bill_paid:
+            col8.write("✅")
+
         if bill_recurring:
             col3.write("🔄")
 
@@ -76,6 +79,3 @@ for bill in get_bills():
         if col7.button("Delete", key=f"delete_{bill_id}"):
             delete_bill(bill_id)
             st.rerun()
-
-        if bill_paid:
-            col8.write("✅")
