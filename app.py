@@ -62,12 +62,21 @@ for bill in get_bills():
 
         if today < bill_due_date:
             datediff = (bill_due_date - today).days
-            col5.success(f"Upcoming ({datediff} days)")
+            if bill_paid == True:
+                col5.success(f"Upcoming ({datediff} days) - Bill Paid ✅")
+            else:
+                col5.success(f"Upcoming ({datediff} days)")
         elif today > bill_due_date:
             datediff = (today - bill_due_date).days
-            col5.error(f"Overdue ({datediff} days)")
+            if bill_paid == True:
+                col5.success(f"Bill Paid ✅")
+            else:
+                col5.error(f"Overdue ({datediff} days)")
         else:
-            col5.warning("Due Today")
+            if bill_paid == True:
+                col5.warning(f"Due Today - Bill Paid ✅")
+            else:
+                col5.warning("Due Today")
 
         if col6.button("Edit", key=f"edit_{bill_id}"):
             st.session_state[edit_key] = True
